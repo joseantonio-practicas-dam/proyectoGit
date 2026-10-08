@@ -20,7 +20,7 @@ jobs:
         run: |
           BRANCH=$(git log -1 --pretty=%B | grep 'Merge pull request' | sed -E 's#.*from [^/]+/##')
           BRANCH=${BRANCH:-${{ github.head_ref || github.ref_name }}}
-          echo "- Añadida feature: $BRANCH" >> README.md
+          echo "- Agregado feature: $BRANCH" >> README.md
 
       - name: Commit y push del README
         run: |
@@ -43,8 +43,8 @@ jobs:
           $localToken = [Environment]::GetEnvironmentVariable("LOCAL_DEV_TOKEN", "User")
 
           if ($env:TOKEN -eq $localToken) {
-            Write-Host "CI: validación de desarrollo correcta"
+            Write-Host "CI: validacion de desarrollo correcta"
           } else {
-            Write-Host "CI: validación fallida"
+            Write-Host "CI: validacion fallida"
             exit 1
           } 
