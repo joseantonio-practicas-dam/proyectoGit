@@ -50,4 +50,4 @@ jobs:
           } else {
             Write-Host "CD: validación fallida ❌"
             exit 1
-          }
+          } 

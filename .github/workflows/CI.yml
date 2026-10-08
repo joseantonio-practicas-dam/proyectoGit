@@ -44,4 +44,4 @@ jobs:
           } else {
             Write-Host "CI: validación fallida ❌"
             exit 1
-          }
+          } 
