@@ -21,6 +21,7 @@ jobs:
           BRANCH=$(git log -1 --pretty=%B | grep 'Merge pull request' | sed -E 's#.*from [^/]+/##')
           BRANCH=${BRANCH:-${{ github.head_ref || github.ref_name }}}
           echo "- Añadida feature: $BRANCH" >> README.md
+
       - name: Commit y push del README
         run: |
           git config user.name "github-actions[bot]"
@@ -28,7 +29,6 @@ jobs:
           git add README.md
           git commit -m "docs: registrar rama" || echo "Sin cambios que commitear"
           git push || echo "Nada que subir"
-
 
   validate-dev:
     needs: update-readme
@@ -38,10 +38,13 @@ jobs:
       - name: Validar entorno de desarrollo
         env:
           TOKEN: ${{ secrets.DEV_TOKEN }}
+        shell: powershell
         run: |
-          if ($env:TOKEN -eq $env:LOCAL_DEV_TOKEN) {
-            Write-Host "CI: validación de desarrollo correcta ✅"
+          $localToken = [Environment]::GetEnvironmentVariable("LOCAL_DEV_TOKEN", "User")
+
+          if ($env:TOKEN -eq $localToken) {
+            Write-Host "CI: validación de desarrollo correcta"
           } else {
-            Write-Host "CI: validación fallida ❌"
+            Write-Host "CI: validación fallida"
             exit 1
           } 
